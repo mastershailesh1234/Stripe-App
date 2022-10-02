@@ -1,0 +1,103 @@
+.fullscreenContainer {
+  background: #eceff1;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 25px;
+  background: white;
+  position: relative;
+  width: 50%;
+  max-width: 400px;
+}
+
+.container::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 5px;
+  background: #2a8ed6;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.header,
+.text {
+  text-align: center;
+}
+
+.header {
+  color: #212121;
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+}
+
+.text {
+  margin-bottom: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.8rem;
+}
+
+.inputContainer input {
+  font-size: 1.25rem;
+  border-radius: 2px;
+  padding: 0.5rem;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 0 1px #9e9e9e;
+}
+
+.inputContainer input:focus {
+  border: none;
+  box-shadow: 0 0 0 1px #2c8fda;
+}
+
+.container button {
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  background: hsl(206, 74%, 44%);
+  color: white;
+}
+
+.container button:hover,
+.container button:focus {
+  background: hsl(151, 70%, 45%, 0.7);
+  /* box-shadow: 0 0 0 1px hsl(151, 100%, 35%); */
+}
+
+.here {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.here a {
+  text-decoration: none;
+  color: #1fa0d3;
+}

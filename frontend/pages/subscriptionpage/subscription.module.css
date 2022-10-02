@@ -1,0 +1,166 @@
+.container {
+  width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.body {
+  margin: 0 auto;
+  padding: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 10px;
+  color: #555;
+  border-radius: 10px;
+  text-transform: capitalize;
+  width: 200px;
+  min-height: 185px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.233);
+  background-color: #fff;
+  border: 3px solid #fff;
+}
+.card h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.card h3 i {
+  width: 33px;
+  height: 33px;
+  font-size: 15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3171ff;
+  color: #fff;
+  opacity: 0;
+}
+.size {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.size::first-letter {
+  font-size: 2em;
+}
+.size span {
+  color: #888;
+  font-size: 16px;
+  font-weight: 500;
+}
+.price {
+  font-weight: bold;
+  font-size: 24px;
+}
+.price span {
+  font-size: 16px;
+  font-weight: normal;
+  color: #888;
+  text-transform: lowercase;
+}
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleContainer label {
+  background-image: linear-gradient(
+    to right,
+    hsl(236, 72%, 79%),
+    hsl(237, 63%, 64%)
+  );
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 10px;
+  position: relative;
+  height: 30px;
+  width: 60px;
+}
+
+.toggleContainer label .ball {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  height: 25px;
+  width: 25px;
+  transition: transform 0.4s ease;
+}
+
+.toggleContainer input {
+  position: absolute;
+  left: -9999px;
+}
+
+.toggleContainer input:checked + label .ball {
+  transform: translateX(30px);
+}
+
+/* CSS */
+.button {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #3f1cdd;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #ec5233;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+/* 
+.button:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  transform: translateY(0);
+} */
