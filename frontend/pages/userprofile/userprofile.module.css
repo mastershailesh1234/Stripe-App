@@ -1,38 +1,85 @@
-.top {
-  /* width: 80%; */
-  background-color: aliceblue;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.page {
   display: flex;
-  margin: 5% 10%;
-  flex-direction: column;
-  padding: 10px;
-  border-radius: 5px;
-  /* border: 0.5px solid black; */
+  min-height: 95vh;
 }
-.container {
+
+.left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding-top: 8.5rem;
+  padding-bottom: 3.5rem;
+  width: 32.7rem;
+  box-shadow: -2px -2px 4px #ffffff, 4px 3px 4px #e7ecef;
+}
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 30%;
+  margin-bottom: 20px;
+}
 
-  /* background-color: rgb(206, 200, 34); */
+@media (max-width: 768px) {
+  .left {
+    width: 100%;
+  }
+
+  .page {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .top {
+    justify-content: center;
+    display: flex;
+    flex: 1;
+  }
+}
+.right {
+  width: 100%;
+  height: 100vh;
+  padding: 0 100px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 217, 0, 0.187);
 }
 .card {
-  background-color: aliceblue;
-  border-radius: 5px;
-  width: 30%;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  display: inline-block;
+  width: 400px;
+  background-color: rgba(245, 248, 250, 0.897);
+  border-radius: 20px;
   font-size: 13px;
-  margin: 10px;
-  padding: 10px;
+  margin: 50px 20px;
+  padding: 5px 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.all {
-  margin: 20px;
-  display: flex;
+.title {
+  margin-top: 8rem;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  margin-bottom: 1.9rem;
+  text-align: center;
+  color: #000000;
 }
-
+@media (max-width: 768px) {
+  .title {
+    margin-top: 3rem;
+  }
+  .card{
+    width: 300px;
+  }
+}
+.bottom {
+  position: relative;
+}
 .button {
-  background-color: rgba(183, 21, 21, 0.105);
+  background-color: rgba(21, 40, 183, 0.105);
   border-radius: 8px;
   border-width: 0;
   color: #333333;

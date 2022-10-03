@@ -2,6 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import classes from "./userprofile.module.css";
+import Navbar from "../../components/navbar";
+import Loading from "../../components/loading";
+import { format } from "date-fns";
 const Profile = () => {
   const [loading, setloading] = useState(true);
   const [initialdata, setdata] = useState();
@@ -62,131 +65,160 @@ const Profile = () => {
   return (
     <>
       {loading ? (
-        <>Loading!!!!!</>
+        <Loading />
       ) : (
         initialdata && (
-          <div className={`${classes.container}`}>
-            <h1>DASH BOARD</h1>
-            <button
-              className={`${classes.button}`}
-              onClick={() => {
-                window.open("/subscriptionpage", "_self");
-              }}
-            >
-              Buy Plan
-            </button>
-            <button
-              className={`${classes.button}`}
-              onClick={() => {
-                delete_cookie("strip-app");
-                window.open("/", "_self");
-              }}
-            >
-              Log out
-            </button>
-
-            <div className={`${classes.card}`}>
-              Name: {initialdata.name}
-              <br />
-              Email: {initialdata.email}
-              <br />
-              Number of Transaction: {initialdata.history.length}
+          <div className={`${classes.page}`}>
+            <Navbar />
+            <div className={`${classes.left}`}>
+              <div className={`${classes.top}`}>
+                <h1>Profile</h1>
+                <div className={`${classes.name}`}>
+                  <b>Name:</b> {initialdata.name}
+                </div>
+                <div className={`${classes.name}`}>
+                  <b>Email:</b> {initialdata.email}
+                </div>
+                <div className={`${classes.name}`}>
+                  <b>Number of Transaction:</b> {initialdata.history.length}
+                </div>
+              </div>
+              <div className={`${classes.bottom}`}>
+                <button
+                  className={`${classes.button}`}
+                  onClick={() => {
+                    delete_cookie("strip-app");
+                    window.open("/", "_self");
+                  }}
+                >
+                  Log out
+                </button>
+              </div>
             </div>
-            <div className={`${classes.all}`}>
-              {hist.map((el, index) => {
-                return (
-                  <div className={`${classes.card}`} key={index}>
-                    <h2>Plan Details</h2>
-                    ID: {el.type._id}
-                    {el.cancel === "yes" ? (
-                      <h5
-                        style={{
-                          color: "red",
-                          background: "rgb(241, 193, 172)",
-                          width: "50px",
-                          padding: "2px",
-                          borderRadius: "10px",
-                        }}
+            <div className={`${classes.right}`}>
+              <div className={`${classes.title}`}>MY BOOKINGS</div>
+              <div className={`${classes.body}`}>
+                {hist.map((el, index) => {
+                  return (
+                    <div className={`${classes.card}`} key={index}>
+                      <h2
+                        style={{ display: "inline-block", marginRight: "10px" }}
                       >
-                        Canceled
-                      </h5>
-                    ) : el.expiry < Date.now() ? (
-                      <h5
+                        {index === 0 ? "Current Plan Details" : "Plan Details "}
+                      </h2>
+                      {el.cancel === "yes" ? (
+                        <h5
+                          style={{
+                            color: "red",
+                            background: "rgb(241, 193, 172)",
+                            width: "50px",
+                            padding: "2px",
+                            borderRadius: "5px",
+                            display: "inline-block",
+                          }}
+                        >
+                          Canceled
+                        </h5>
+                      ) : el.expiry < Date.now() ? (
+                        <h5
+                          style={{
+                            color: "grey",
+                            background: "rgb(211, 216, 221)",
+                            width: "40px",
+                            padding: "2px",
+                            borderRadius: "5px",
+                            display: "inline-block",
+                          }}
+                        >
+                          Expired
+                        </h5>
+                      ) : (
+                        <h5
+                          style={{
+                            color: "blue",
+                            background: "rgb(195, 221, 244)",
+                            width: "40px",
+                            padding: "2px",
+                            borderRadius: "5px",
+                            display: "inline-block",
+                          }}
+                        >
+                          Active
+                        </h5>
+                      )}
+                      <br />
+                      {/* ID:{el._id} */}
+                      <p
                         style={{
+                          marginBottom: "-10px",
+                          marginTop: "-5px",
                           color: "grey",
-                          background: "rgb(211, 216, 221)",
-                          width: "40px",
-                          padding: "2px",
-                          borderRadius: "10px",
+                          fontSize: "15px",
+                          fontWeight: "500",
                         }}
                       >
-                        Expired
-                      </h5>
-                    ) : (
-                      <h5
+                        {el.type.plantype.charAt(0).toUpperCase() +
+                          el.type.plantype.slice(1)}
+                      </p>
+                      <p
                         style={{
-                          color: "blue",
-                          background: "rgb(195, 221, 244)",
-                          width: "40px",
-                          padding: "2px",
-                          borderRadius: "10px",
+                          color: "#a6a6a6",
+                          fontWeight: "500",
                         }}
                       >
-                        Active
-                      </h5>
-                    )}
-                    <h3>
-                      {el.type.plantype.charAt(0).toUpperCase() +
-                        el.type.plantype.slice(1)}
-                    </h3>
-                    <p>
-                      {el.type.device.map((ele) => {
-                        return ele.charAt(0).toUpperCase() + ele.slice(1) + " ";
-                      })}
-                    </p>
-                    <h2>
-                      ₹{el.type.price}/{el.type.type}
-                    </h2>
-                    {el.cancel === "yes" ? (
-                      <button
-                        className={`${classes.button}`}
-                        onClick={() => {
-                          window.open("/subscriptionpage", "_self");
+                        {el.type.device.map((ele) => {
+                          return (
+                            ele.charAt(0).toUpperCase() + ele.slice(1) + " "
+                          );
+                        })}
+                      </p>
+                      <h2>
+                        ₹{el.type.price}/{el.type.type}
+                      </h2>
+                      {el.cancel === "yes" ? (
+                        <button
+                          className={`${classes.button}`}
+                          onClick={() => {
+                            window.open("/subscriptionpage", "_self");
+                          }}
+                        >
+                          Choose Plan
+                        </button>
+                      ) : new Date(`${el.expiry}`) > Date.now() ? (
+                        <button
+                          className={`${classes.button}`}
+                          onClick={() => {
+                            handler(el._id);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <button
+                          className={`${classes.button}`}
+                          onClick={() => {
+                            handler(el._id);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                      <p
+                        style={{
+                          background: "#cccaca41",
+                          padding: "10px",
                         }}
                       >
-                        Buy Plan
-                      </button>
-                    ) : new Date(`${el.expiry}`) > Date.now() ? (
-                      <button
-                        className={`${classes.button}`}
-                        onClick={() => {
-                          handler(el._id);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    ) : (
-                      <button
-                        className={`${classes.button}`}
-                        onClick={() => {
-                          handler(el._id);
-                        }}
-                      >
-                        Cancel
-                      </button>
-                    )}
-                    <p
-                      style={{
-                        background: "",
-                      }}
-                    >
-                      Your subscription was started on <b>{el.starttime} </b>
-                      and ended on <b>{el.expirytime}</b>
-                    </p>
-                    <br />
-                  </div>
-                );
-              })}
+                        Your subscription was started on{" "}
+                        <b>{format(new Date(el.starttime), "dd/MM/yy")} </b>
+                        and ends on{" "}
+                        <b>{format(new Date(el.expirytime), "dd/MM/yy")}</b>.
+                      </p>
+                      <br />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )

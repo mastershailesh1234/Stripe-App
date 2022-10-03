@@ -1,0 +1,42 @@
+.navbar {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  background: rgba(0, 0, 0, 0.825);
+  z-index: 5000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.navbarContainer {
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btnContainer {
+  display: flex;
+  align-items: center;
+}
+.title {
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+}
+.navbarBtn {
+  padding: 0.3rem 1rem;
+  display: flex;
+  align-items: center;
+  background-color: #ffd43d;
+  border: 1.3px solid #000000;
+  box-shadow: 6px 4.09467px 4.09467px rgba(37, 42, 45, 0.07);
+  border-radius: 58.8609px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.navbarBtnBox {
+  display: flex;
+  align-items: center;
+}

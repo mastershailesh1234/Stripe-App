@@ -3,6 +3,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import axios from "axios";
 import classes from "./subscription.module.css";
 import StripeCheckout from "react-stripe-checkout";
+import Loading from "../../components/loading";
 const Subscription = () => {
   const [initialdata, setData] = useState("");
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const Subscription = () => {
             }
           )
           .then(() => {
+            alert("Payment Successful");
             window.open("/userprofile/", "_self");
           });
       } catch (err) {
@@ -85,14 +87,16 @@ const Subscription = () => {
     getData();
   }, []);
   useEffect(() => {
-    const output = initialdata?.filter((el) =>
-      el.type.toLowerCase().includes(toggle.toLowerCase())
-    );
-    setSearchdata(
-      output?.sort(function (a, b) {
-        return a.price - b.price;
-      })
-    );
+    if (initialdata) {
+      const output = initialdata?.filter((el) =>
+        el.type.toLowerCase().includes(toggle.toLowerCase())
+      );
+      setSearchdata(
+        output?.sort(function (a, b) {
+          return a.price - b.price;
+        })
+      );
+    }
   }, [toggle]);
 
   // const handler = async () => {
@@ -112,113 +116,126 @@ const Subscription = () => {
   //   }
   // };
   return (
-    <div className={`${classes.body}`}>
-      <div className={`${classes.textsection}`}>
-        <h1>Choose the Plan thats right for you</h1>
-      </div>
-      <div>
-        <div className={`${classes.toggleContainer}`}>
-          <span
-            style={{
-              color: toggle === "monthly" ? "blue" : "",
-            }}
-          >
-            Monthly
-          </span>
-          <div>
-            <input type="checkbox" name="toggle" id="toggle" unchecked />
-            <label
-              onClick={() => {
-                setActive(null);
-                if (toggle === "monthly") {
-                  setToggle("yearly");
-                } else {
-                  setToggle("monthly");
-                }
-              }}
-              for="toggle"
-            >
-              <div
-                onClick={() => {
-                  setActive(null);
-                  if (toggle === "monthly") {
-                    setToggle("yearly");
-                  } else {
-                    setToggle("monthly");
-                  }
-                }}
-                className={`${classes.ball}`}
-              ></div>
-            </label>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={`${classes.body}`}>
+          {/* <Navbar /> */}
+          <div className={`${classes.textsection}`}>
+            <h1>Choose the Plan thats right for you</h1>
           </div>
-          <span
-            style={{
-              color: toggle === "yearly" ? "blue" : "",
-            }}
-          >
-            Yearly
-          </span>
-        </div>
-      </div>
-      <br />
-      <div className={`${classes.container}`}>
-        {loading ? (
-          <>
-            <h1>Loading</h1>
-          </>
-        ) : (
-          searchdata.map((el, index) => {
-            return (
-              <div
-                key={index}
-                onClick={() => {
-                  if (el._id === active?._id) {
-                    setActive(null);
-                  } else {
-                    setActive(el);
-                  }
-                }}
+          <div>
+            <div className={`${classes.toggleContainer}`}>
+              <span
                 style={{
-                  border: el._id === active?._id ? "3px solid #3171ff" : "",
-                  borderRadius: "10px",
-                  cursor: "pointer",
+                  color: toggle === "monthly" ? "blue" : "",
+                  fontWeight: toggle === "monthly" ? "500" : "",
                 }}
               >
-                <div className={`${classes.card} active`}>
-                  <h3>
-                    {el.plantype}
-                    <i
-                      style={{
-                        opacity: el._id === active?._id ? 1 : 0,
-                      }}
-                    >
-                      <CheckIcon></CheckIcon>
-                    </i>
-                  </h3>
-                  <p className={`${classes.size}`}>
-                    <span> Video Quality : </span>
-                    {el.videoquality}
-                  </p>
-                  <p className={`${classes.size}`}>
-                    <span>Resolution : </span>
-                    {el.resolution}
-                  </p>
-                  <p className={`${classes.price}`}>
-                    ₹{el.price}/<span>month</span>
-                  </p>
-                  {/* <div className={`${classes.list}`}>
-                    {el.device.map((e, index) => {
-                      return <div key={index}>{e}</div>;
-                    })}
-                  </div> */}
-                </div>
+                Monthly
+              </span>
+              <div>
+                <input type="checkbox" name="toggle" id="toggle" unchecked />
+                <label
+                  onClick={() => {
+                    setActive(null);
+                    if (toggle === "monthly") {
+                      setToggle("yearly");
+                    } else {
+                      setToggle("monthly");
+                    }
+                  }}
+                  for="toggle"
+                >
+                  <div
+                    onClick={() => {
+                      setActive(null);
+                      if (toggle === "monthly") {
+                        setToggle("yearly");
+                      } else {
+                        setToggle("monthly");
+                      }
+                    }}
+                    className={`${classes.ball}`}
+                  ></div>
+                </label>
               </div>
-            );
-          })
-        )}
-      </div>
-      <div className={`${classes.body}`}>
-        {/* <button
+              <span
+                style={{
+                  color: toggle === "yearly" ? "blue" : "",
+                  fontWeight: toggle === "yearly" ? "500" : "",
+                }}
+              >
+                Yearly
+              </span>
+            </div>
+          </div>
+          <br />
+          <div className={`${classes.container}`}>
+            {loading ? (
+              <>
+                <Loading />
+              </>
+            ) : (
+              searchdata.map((el, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      if (el._id === active?._id) {
+                        setActive(null);
+                      } else {
+                        setActive(el);
+                      }
+                    }}
+                    style={{
+                      border: el._id === active?._id ? "3px solid #3171ff" : "",
+                      borderRadius: "10px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div className={`${classes.card}`}>
+                      <h3>
+                        {el.plantype}
+                        <i
+                          style={{
+                            opacity: el._id === active?._id ? 1 : 0,
+                            marginLeft: "25px",
+                          }}
+                        >
+                          <CheckIcon></CheckIcon>
+                        </i>
+                      </h3>
+                      <p className={`${classes.size}`}>
+                        <span> Video Quality : </span>
+                        {el.videoquality}
+                      </p>
+                      <p className={`${classes.size}`}>
+                        <span>Resolution : </span>
+                        {el.resolution}
+                      </p>
+                      <p className={`${classes.price}`}>
+                        ₹{el.price}/
+                        <span>{el.type === "monthly" ? "month" : "year"}</span>
+                      </p>
+                      <div className={`${classes.list}`}>
+                        {el.device.map((e, index) => {
+                          return (
+                            <div key={index}>
+                              <p>{e}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+          <div className={`${classes.body}`}>
+            {/* <button
           className={`${classes.button}`}
           role="button"
           onClick={() => {
@@ -228,28 +245,30 @@ const Subscription = () => {
         >
           NEXT
         </button> */}
-        <br />
-        {active ? (
-          <StripeCheckout
-            name="Stripe-App"
-            image="https://cdn.pixabay.com/photo/2020/12/27/20/24/smile-5865208_1280.png"
-            // billingAddress
-            // shippingAddress
-            email=""
-            description={`Your total is $${active?.price} Plan- ${active?.plantype},${active?.type} `}
-            amount={active?.price * 100}
-            token={onToken}
-            stripeKey="pk_test_51LoKWRCt5sW24m0DkYnoLW64hcv76LEUBlr7RBknoayeAiH8c7GKkkHE1qzhDj0qgDd7EfpQD8XXmRMbEeWscGm800yvl065U5"
-          >
-            <button className={`${classes.button}`}>PAY NOW</button>
-          </StripeCheckout>
-        ) : (
-          <>
-            <p>Select a plan to continue</p>
-          </>
-        )}
-      </div>
-    </div>
+            <br />
+            {active ? (
+              <StripeCheckout
+                name="Stripe-App"
+                image="https://cdn.pixabay.com/photo/2020/12/27/20/24/smile-5865208_1280.png"
+                // billingAddress
+                // shippingAddress
+                email=""
+                description={`Your total is $${active?.price} Plan- ${active?.plantype},${active?.type} `}
+                amount={active?.price * 100}
+                token={onToken}
+                stripeKey="pk_test_51LoKWRCt5sW24m0DkYnoLW64hcv76LEUBlr7RBknoayeAiH8c7GKkkHE1qzhDj0qgDd7EfpQD8XXmRMbEeWscGm800yvl065U5"
+              >
+                <button className={`${classes.button}`}>PAY NOW</button>
+              </StripeCheckout>
+            ) : (
+              <>
+                <p>Select a plan to continue</p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

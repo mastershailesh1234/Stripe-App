@@ -1,0 +1,48 @@
+.custom {
+  height: 150px;
+
+  flex-direction: column;
+  position: relative;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.balls {
+  display: flex;
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: black;
+  margin-right: 10px;
+  animation: ball 0.5s ease infinite alternate;
+}
+
+.ball2 {
+  animation-delay: 0.1s;
+}
+
+.ball3 {
+  animation-delay: 0.2s;
+}
+
+@keyframes ball {
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.customText {
+  font-size: 20px;
+  font-weight: 100;
+  text-align: center;
+}
